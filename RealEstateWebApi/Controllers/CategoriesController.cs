@@ -30,7 +30,7 @@ namespace RealEstateWebApi.Controllers
             return Ok("Category is added");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteCategory(int id) 
         {
             _categoryRepository.DeleteCategoryAsync(id);

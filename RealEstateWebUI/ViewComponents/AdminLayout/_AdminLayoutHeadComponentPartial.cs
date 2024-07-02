@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace RealEstateWebUI.ViewComponents.HomePage
+namespace RealEstateWebUI.ViewComponents.AdminLayout
 {
-    public class _DefaultOurClientsComponentPartial : ViewComponent
+    public class _AdminLayoutHeadComponentPartial : ViewComponent
     {
         public IViewComponentResult Invoke()
         {

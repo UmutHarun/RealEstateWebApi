@@ -1,0 +1,37 @@
+﻿@model List<RealEstateWebUI.Dtos.CategoryDtos.ResultCategoryDto>
+
+@{
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="col-12">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Responsive Table</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Category Name</th>
+                        <th scope="col">Category Status</th>
+                        <th scope="col">Delete</th>
+                        <th scope="col">Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.CategoryId</th>
+                            <td>@item.CategoryName</td>
+                            <td>@item.CategoryStatus</td>
+                            <td><a class="btn btn-danger" href="/Category/DeleteCategory/@item.CategoryId">Delete</a></td>
+                            <td><a class="btn btn-warning" href="/Category/UpdateCategory/@item.CategoryId">Update</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a class="btn btn-success" href="/Category/CreateCategory">Create Category</a>
+        </div>
+    </div>
+</div>

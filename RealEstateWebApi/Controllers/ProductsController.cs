@@ -14,11 +14,18 @@ namespace RealEstateWebApi.Controllers
             _productRepository = productRepository;
         }
 
-        [HttpGet]   
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var values = await _productRepository.GetAllProductsWithCategoryAsync();
             return Ok(values);
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetProducts()
+        //{
+        //    var values = await _productRepository.GetAllProductsAsync();
+        //    return Ok(values);
+        //}
     }
 }

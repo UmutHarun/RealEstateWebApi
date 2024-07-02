@@ -25,7 +25,19 @@ namespace RealEstateWebApi.Repositories.ProductRepository
 
         public async Task<List<ResultProductWithCategoryDto>> GetAllProductsWithCategoryAsync()
         {
-            string query = "Select ProductId,Title,Price,City,District,CategoryName From Product inner join Category on Product.ProductCategory=Category.CategoryId";
+            string query = @"
+                SELECT 
+                    p.ProductId,
+                    p.Title,
+                    p.Price,
+                    p.City,
+                    p.District,
+                    p.CoverImage,
+                    p.Type,
+                    p.Address,
+                    c.CategoryName 
+                FROM Product p
+                INNER JOIN Category c ON p.ProductCategory = c.CategoryId";
             using (var connection = _context.CreateConnection())
             {
                 var values = await connection.QueryAsync<ResultProductWithCategoryDto>(query);
