@@ -1,0 +1,36 @@
+﻿@model RealEstateWebUI.Dtos.EmployeeDtos.UpdateEmployeeDto
+
+@{
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Update Employee</h6>
+                <form method="post">
+                    <input type="text" asp-for="EmployeeId" hidden />
+                    <label>Employee Name</label>
+                    <input type="text" asp-for="Name" class="form-control" />
+                    <br />
+                    <label>Employee Title</label>
+                    <input type="text" asp-for="Title" class="form-control" />
+                    <br />
+                    <label>Employee Mail</label>
+                    <input type="text" asp-for="Mail" class="form-control" />
+                    <br />
+                    <label>Employee PhoneNumber</label>
+                    <input type="text" asp-for="PhoneNumber" class="form-control" />
+                    <br />
+                    <label>Employee ImageUrl</label>
+                    <input type="text" asp-for="ImageUrl" class="form-control" />
+                    <br />
+                    <button class="btn btn-warning">Update Employee</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

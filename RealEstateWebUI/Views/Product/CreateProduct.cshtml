@@ -1,1 +1,45 @@
-﻿
+﻿@model RealEstateWebUI.Dtos.ProductDtos.CreateProductDto
+
+@{
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">New Product</h6>
+                <form method="post">
+                    <label>Product Title</label>
+                    <input type="text" asp-for="Title" class="form-control" />
+                    <br />
+                    <label>Product Price</label>
+                    <input  asp-for="Price" class="form-control" />
+                    <br />
+                    <label>Product City</label>
+                    <input type="text" asp-for="City" class="form-control" />
+                    <br />
+                    <label>Product District</label>
+                    <input type="text" asp-for="District" class="form-control" />
+                    <br />
+                    <label>Category Name</label>
+                    @Html.DropDownListFor(x => x.CategoryId,(List<SelectListItem>)ViewBag.categoryValues,new {@class="form-control"})
+                    <br />
+                    <label>Product CoverImage</label>
+                    <input type="text" asp-for="CoverImage" class="form-control" />
+                    <br />
+                    <label>Product Type</label>
+                    <input type="text" asp-for="Type" class="form-control" />
+                    <br />
+                    <label>Product Address</label>
+                    <input type="text" asp-for="Address" class="form-control" />
+                    <br />
+                    <button class="btn btn-success">Add Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+                    
+                    

@@ -1,0 +1,41 @@
+﻿@model List<RealEstateWebUI.Dtos.WhoWeAreDetailDtos.ResultWhoWeAreDetailDto>
+
+@{
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="col-12">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Who We Are Detail</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Subtitle</th>
+                        <th scope="col">Description1</th>
+                        <th scope="col">Description2</th>
+                        <th scope="col">Delete</th>
+                        <th scope="col">Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.WhoWeAreDetailId</th>
+                            <td>@item.Title</td>
+                            <td>@item.Subtitle</td>
+                            <td>@item.Description1</td>
+                            <td>@item.Description2</td>
+                            <td><a class="btn btn-danger" href="/WhoWeAreDetail/DeleteWhoWeAreDetail/@item.WhoWeAreDetailId">Delete</a></td>
+                            <td><a class="btn btn-warning" href="/WhoWeAreDetail/UpdateWhoWeAreDetail/@item.WhoWeAreDetailId">Update</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a class="btn btn-success" href="/WhoWeAreDetail/CreateWhoWeAreDetail">Create WhoWeAreDetail</a>
+        </div>
+    </div>
+</div>

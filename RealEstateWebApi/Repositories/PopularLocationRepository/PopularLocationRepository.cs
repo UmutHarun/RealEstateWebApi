@@ -14,14 +14,27 @@ namespace RealEstateWebApi.Repositories.PopularLocationRepository
             _context = context;
         }
 
-        public void AddPopularLocationAsync(AddPopularLocationDto addPopularLocationDto)
+        public async void AddPopularLocationAsync(AddPopularLocationDto addPopularLocationDto)
         {
-            throw new NotImplementedException();
+            string query = "insert into PopularLocation (CityName,ImageUrl) values (@cityName,@imageUrl)";
+            var parameters = new DynamicParameters();
+            parameters.Add("@cityName", addPopularLocationDto.CityName);
+            parameters.Add("@imageUrl", addPopularLocationDto.ImageUrl);
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
         }
 
-        public void DeletePopularLocationAsync(int id)
+        public async void DeletePopularLocationAsync(int id)
         {
-            throw new NotImplementedException();
+            string query = "Delete From PopularLocation Where LocationId=@locationId";
+            var parameters = new DynamicParameters();
+            parameters.Add("@locationId", id);
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
         }
 
         public async Task<List<ResultPopularLocationDto>> GetAllPopularLocationsAsync()
@@ -32,14 +45,29 @@ namespace RealEstateWebApi.Repositories.PopularLocationRepository
             return values.ToList();
         }
 
-        public Task<ResultPopularLocationDto> GetPopularLocationByIdAsync(int id)
+        public async Task<ResultPopularLocationDto> GetPopularLocationByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            string query = "Select * From PopularLocation where LocationId=@locationId";
+            var parameters = new DynamicParameters();
+            parameters.Add("@locationId", id);
+            using (var connection = _context.CreateConnection())
+            {
+                var value = await connection.QueryFirstOrDefaultAsync<ResultPopularLocationDto>(query, parameters);
+                return value;
+            }
         }
 
-        public void UpdatePopularLocationAsync(UpdatePopularLocationDto updatePopularLocationDto)
+        public async void UpdatePopularLocationAsync(UpdatePopularLocationDto updatePopularLocationDto)
         {
-            throw new NotImplementedException();
+            string query = "Update PopularLocation Set CityName=@cityName,ImageUrl=@imageUrl where LocationId=@locationId";
+            var parameters = new DynamicParameters();
+            parameters.Add("@cityName", updatePopularLocationDto.CityName);
+            parameters.Add("@imageUrl", updatePopularLocationDto.ImageUrl);
+            parameters.Add("@locationId", updatePopularLocationDto.LocationId);
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
         }
     }
 }

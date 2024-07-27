@@ -1,0 +1,39 @@
+﻿@model List<RealEstateWebUI.Dtos.BottomGridDto.ResultBottomGridDto>
+
+@{
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="col-12">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Bottom Grid Table</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Icon</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Delete</th>
+                        <th scope="col">Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.BottomGridId</th>
+                            <td>@item.Icon</td>
+                            <td>@item.Title</td>
+                            <td>@item.Description</td>
+                            <td><a class="btn btn-danger" href="/BottomGrid/DeleteBottomGrid/@item.BottomGridId">Delete</a></td>
+                            <td><a class="btn btn-warning" href="/BottomGrid/UpdateBottomGrid/@item.BottomGridId">Update</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a class="btn btn-success" href="/BottomGrid/CreateBottomGrid">Create Bottom Grid</a>
+        </div>
+    </div>
+</div>

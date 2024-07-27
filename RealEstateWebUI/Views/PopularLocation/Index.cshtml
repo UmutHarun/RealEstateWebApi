@@ -1,0 +1,37 @@
+﻿@model List<RealEstateWebUI.Dtos.PopularLocationDtos.ResultPopularLocationDto>
+
+@{
+    Layout = "~/Views/Admin/Index.cshtml";
+}
+
+<div class="col-12">
+    <div class="bg-light rounded h-100 p-4">
+        <h6 class="mb-4">Popular Locations Table</h6>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">CityName</th>
+                        <th scope="col">ImageUrl</th>
+                        <th scope="col">Delete</th>
+                        <th scope="col">Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@item.LocationId</th>
+                            <td>@item.CityName</td>
+                            <td>@item.ImageUrl</td>
+                            <td><a class="btn btn-danger" href="/PopularLocation/DeletePopularLocation/@item.LocationId">Delete</a></td>
+                            <td><a class="btn btn-warning" href="/PopularLocation/UpdatePopularLocation/@item.LocationId">Update</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <a class="btn btn-success" href="/PopularLocation/CreatePopularLocation">Create Popular Location</a>
+        </div>
+    </div>
+</div>

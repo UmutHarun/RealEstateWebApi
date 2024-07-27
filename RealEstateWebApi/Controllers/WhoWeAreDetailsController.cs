@@ -30,7 +30,7 @@ namespace RealEstateWebApi.Controllers
             return Ok("WhoWeAreDetail is added");
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteWhoWeAreDetail(int id)
         {
             _WhoWeAreDetailRepository.DeleteWhoWeAreDetailAsync(id);
