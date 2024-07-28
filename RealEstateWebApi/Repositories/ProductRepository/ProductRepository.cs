@@ -35,6 +35,7 @@ namespace RealEstateWebApi.Repositories.ProductRepository
                     p.CoverImage,
                     p.Type,
                     p.Address,
+                    p.DealOfTheDay,
                     c.CategoryName 
                 FROM Product p
                 INNER JOIN Category c ON p.ProductCategory = c.CategoryId";

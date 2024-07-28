@@ -15,6 +15,7 @@
                         <th scope="col">Product Title</th>
                         <th scope="col">Product Price</th>
                         <th scope="col">Category Name</th>
+                        <th scope="col">Deal Of Day</th>
                         <th scope="col">Delete</th>
                         <th scope="col">Update</th>
                     </tr>
@@ -27,6 +28,16 @@
                             <td>@item.Title</td>
                             <td>@item.Price</td>
                             <td>@item.CategoryName</td>
+                            <td>
+                                @if (item.DealOfTheDay)
+                                {
+                                    <a class="btn btn-warning" href="/Product/UpdateProduct/@item.ProductId">Set DeActive</a>
+                                }
+                                else
+                                {
+                                    <a class="btn btn-warning" href="/Product/ProductDetails/@item.ProductId">Set Active</a>
+                                }
+                            </td>
                             <td><a class="btn btn-danger" href="/Product/DeleteProduct/@item.ProductId">Delete</a></td>
                             <td><a class="btn btn-warning" href="/Product/UpdateProduct/@item.ProductId">Update</a></td>
                         </tr>
