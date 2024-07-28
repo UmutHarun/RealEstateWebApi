@@ -45,5 +45,23 @@ namespace RealEstateWebApi.Repositories.ProductRepository
                 return values.ToList();
             }
         }
+
+        public async void ProductDealOfTheDayStatusChange(int id)
+        {
+            string query = @"
+                UPDATE Product
+                SET DealOfTheDay = CASE 
+                    WHEN DealOfTheDay = 1 THEN 0
+                    ELSE 1
+                END
+                WHERE ProductId = @productId";
+            var parameters = new DynamicParameters();
+            parameters.Add("@productId", id);
+
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
+        }
     }
 }

@@ -31,11 +31,11 @@
                             <td>
                                 @if (item.DealOfTheDay)
                                 {
-                                    <a class="btn btn-warning" href="/Product/UpdateProduct/@item.ProductId">Set DeActive</a>
+                                    <a class="btn btn-danger" href="/Product/ProductDealOfTheDayStatusChange/@item.ProductId">Set DeActive</a>
                                 }
                                 else
                                 {
-                                    <a class="btn btn-warning" href="/Product/ProductDetails/@item.ProductId">Set Active</a>
+                                    <a class="btn btn-success" href="/Product/ProductDealOfTheDayStatusChange/@item.ProductId">Set Active</a>
                                 }
                             </td>
                             <td><a class="btn btn-danger" href="/Product/DeleteProduct/@item.ProductId">Delete</a></td>

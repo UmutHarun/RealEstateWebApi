@@ -21,11 +21,11 @@ namespace RealEstateWebApi.Controllers
             return Ok(values);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetProducts()
-        //{
-        //    var values = await _productRepository.GetAllProductsAsync();
-        //    return Ok(values);
-        //}
+        [HttpGet("ProductDealOfTheDayStatusChange/{id}")]
+        public async Task<IActionResult> ProductDealOfTheDayStatusChange(int id)
+        {
+            _productRepository.ProductDealOfTheDayStatusChange(id);
+            return Ok("Status is changed");
+        }
     }
 }
