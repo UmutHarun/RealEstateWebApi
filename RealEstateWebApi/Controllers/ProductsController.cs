@@ -27,5 +27,12 @@ namespace RealEstateWebApi.Controllers
             _productRepository.ProductDealOfTheDayStatusChange(id);
             return Ok("Status is changed");
         }
+
+        [HttpGet("Last5ProductList")]
+        public async Task<IActionResult> Last5ProductAsync()
+        {
+            var values = await _productRepository.GetLast5ProductAsync();
+            return Ok(values);
+        }
     }
 }
