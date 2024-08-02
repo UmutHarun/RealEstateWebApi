@@ -57,6 +57,31 @@ namespace RealEstateWebApi.Repositories.ProductRepository
             }
         }
 
+        public async Task<List<ResultProductAdvertListWithCategoryByEmployee>> GetProductAdvertListByEmployeeAsync(int id)
+        {
+            string query = @"
+                SELECT 
+                    p.ProductId,
+                    p.Title,
+                    p.Price,
+                    p.City,
+                    p.District,
+                    p.CoverImage,
+                    p.Type,
+                    p.Address,
+                    p.DealOfTheDay,
+                    c.CategoryName 
+                FROM Product p
+                INNER JOIN Category c ON p.ProductCategory = c.CategoryId where EmployeeId = @employeeId";
+            var parameters = new DynamicParameters();
+            parameters.Add("@employeeId", id);
+            using (var connection = _context.CreateConnection())
+            {
+                var values = await connection.QueryAsync<ResultProductAdvertListWithCategoryByEmployee>(query,parameters);
+                return values.ToList();
+            }
+        }
+
         public async void ProductDealOfTheDayStatusChange(int id)
         {
             string query = @"
