@@ -29,52 +29,40 @@ namespace RealEstateWebUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(CreateLoginDto loginDto)
         {
-            try
+            var client = _httpClientFactory.CreateClient();
+            var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(loginDto), Encoding.UTF8, "application/json");
+            var response = await client.PostAsync("https://localhost:7232/api/Login", content);
+
+            if (response.IsSuccessStatusCode)
             {
-                var client = _httpClientFactory.CreateClient();
-                var content = new StringContent(System.Text.Json.JsonSerializer.Serialize(loginDto), Encoding.UTF8, "application/json");
-                var response = await client.PostAsync("https://localhost:7232/api/Login", content);
-
-                if (response.IsSuccessStatusCode)
+                var jsonData = await response.Content.ReadAsStringAsync();
+                var tokenModel = System.Text.Json.JsonSerializer.Deserialize<JwtResponseModel>(jsonData, new JsonSerializerOptions
                 {
-                    var jsonData = await response.Content.ReadAsStringAsync();
-                    var tokenModel = System.Text.Json.JsonSerializer.Deserialize<JwtResponseModel>(jsonData, new JsonSerializerOptions
-                    {
-                        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                    });
+                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                });
 
-                    if (tokenModel != null && tokenModel.Token != null)
-                    {
-                        JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-                        var token = handler.ReadJwtToken(tokenModel.Token);
-                        var claims = token.Claims.ToList();
-
-                        claims.Add(new Claim("realestatetoken", tokenModel.Token));
-                        var claimsIdentity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
-                        var authProps = new AuthenticationProperties
-                        {
-                            ExpiresUtc = tokenModel.ExpireDate,
-                            IsPersistent = true
-                        };
-
-                        await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
-                        return RedirectToAction("Index", "Employee");
-                    }
-                }
-                else
+                if (tokenModel != null)
                 {
-                    Console.WriteLine(response.RequestMessage);
+                    JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+                    var token = handler.ReadJwtToken(tokenModel.Token);
+                    var claims = token.Claims.ToList();
+
+                    claims.Add(new Claim("realestatetoken", tokenModel.Token));
+                    var claimsIdentity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
+                    var authProps = new AuthenticationProperties
+                    {
+                        ExpiresUtc = tokenModel.ExpireDate,
+                        IsPersistent = true
+                    };
+
+                    await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
+                    return RedirectToAction("Index", "Employee");
                 }
             }
-            catch (Exception ex)
+            else
             {
-                // Log the exception (optional)
-                Console.WriteLine($"Exception during HTTP request: {ex.Message}");
-
-                // Pass the exception message to the client side
-                ViewBag.ErrorMessage = ex.Message;
+                Console.WriteLine(response.RequestMessage);
             }
-
             return View();
         }
     }

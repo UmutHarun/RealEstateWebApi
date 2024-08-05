@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RealEstateWebUI.Dtos.ProductDtos;
+using RealEstateWebUI.Services;
 
 namespace RealEstateWebUI.Areas.EstateAgent.Controllers
 {
@@ -8,16 +9,19 @@ namespace RealEstateWebUI.Areas.EstateAgent.Controllers
     public class MyAdvertsController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly ILoginService _loginService;
 
-        public MyAdvertsController(IHttpClientFactory httpClientFactory)
+        public MyAdvertsController(IHttpClientFactory httpClientFactory, ILoginService loginService)
         {
             _httpClientFactory = httpClientFactory;
+            _loginService = loginService;
         }
 
-        public async Task<IActionResult> Index(int id)
+        public async Task<IActionResult> Index()
         {
+            var id = _loginService.GetUserId;
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7232/api/Products/ProductAdvertsListByEmployeeId?id=1");
+            var responseMessage = await client.GetAsync("https://localhost:7232/api/Products/ProductAdvertsListByEmployeeId?id=" + id);
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();

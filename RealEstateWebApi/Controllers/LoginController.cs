@@ -37,7 +37,7 @@ namespace RealEstateWebApi.Controllers
                     model.Username = values.UserName;
                     model.Id = values2.UserId;
                     var token = JwtTokenGenerator.GenerateToken(model);
-                    return Ok(model);
+                    return Ok(token);
                 }
                 else
                 {
