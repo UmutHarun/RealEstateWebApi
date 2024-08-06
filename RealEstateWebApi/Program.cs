@@ -7,6 +7,7 @@ using RealEstateWebApi.Repositories.EmployeeRepository;
 using RealEstateWebApi.Repositories.EstateAgentRepositories.DashboardRepositories.ChartRepositories;
 using RealEstateWebApi.Repositories.EstateAgentRepositories.DashboardRepositories.LastProductsRepositories;
 using RealEstateWebApi.Repositories.EstateAgentRepositories.DashboardRepositories.StatisticRepositories;
+using RealEstateWebApi.Repositories.MessageRepository;
 using RealEstateWebApi.Repositories.PopularLocationRepository;
 using RealEstateWebApi.Repositories.ProductRepository;
 using RealEstateWebApi.Repositories.ServiceRepository;
@@ -33,6 +34,7 @@ builder.Services.AddTransient<IToDoListRepository, ToDoListRepository>();
 builder.Services.AddTransient<IAgentStatisticRepository, AgentStatisticRepository>(); 
 builder.Services.AddTransient<IChartRepository, ChartRepository>(); 
 builder.Services.AddTransient<ILast5ProductsRepository, Last5ProductsRepository>(); 
+builder.Services.AddTransient<IMessageRepository, MessageRepository>(); 
 
 builder.Services.AddCors(opt =>
 {
