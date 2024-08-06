@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using RealEstateWebApi.Dtos.CategoryDtos;
 using RealEstateWebApi.Dtos.ProductDtos;
 using RealEstateWebApi.Models.DapperContext;
 
@@ -11,6 +12,28 @@ namespace RealEstateWebApi.Repositories.ProductRepository
         public ProductRepository(Context context)
         {
             _context = context;
+        }
+
+        public async Task CreateProduct(CreateProductDto createProductDto)
+        {
+            string query = "insert into Product (Title,Price,City,District,CoverImage,Address,Description,Type,DealOfTheDay,Status,ProductCategory,EmployeeId) values (@Title,@Price,@City,@District,@CoverImage,@Address,@Description,@Type,@DealOfTheDay,@Status,@ProductCategory,@EmployeeId)";
+            var parameters = new DynamicParameters();
+            parameters.Add("@Title", createProductDto.Title);
+            parameters.Add("@Price", createProductDto.Price);
+            parameters.Add("@City", createProductDto.City);
+            parameters.Add("@District", createProductDto.District);
+            parameters.Add("@CoverImage", createProductDto.CoverImage);
+            parameters.Add("@Address", createProductDto.Address);
+            parameters.Add("@Description", createProductDto.Description);
+            parameters.Add("@Type", createProductDto.Type);
+            parameters.Add("@DealOfTheDay", createProductDto.DealOfTheDay);
+            parameters.Add("@Status", createProductDto.Status);
+            parameters.Add("@ProductCategory", createProductDto.ProductCategory);
+            parameters.Add("@EmployeeId", createProductDto.EmployeeId);
+            using (var connection = _context.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parameters);
+            }
         }
 
         public async Task<List<ResultProductDto>> GetAllProductsAsync()
@@ -57,7 +80,7 @@ namespace RealEstateWebApi.Repositories.ProductRepository
             }
         }
 
-        public async Task<List<ResultProductAdvertListWithCategoryByEmployee>> GetProductAdvertListByEmployeeAsync(int id)
+        public async Task<List<ResultProductAdvertListWithCategoryByEmployee>> GetProductAdvertListByEmployeeAsyncByFalse(int id)
         {
             string query = @"
                 SELECT 
@@ -72,12 +95,37 @@ namespace RealEstateWebApi.Repositories.ProductRepository
                     p.DealOfTheDay,
                     c.CategoryName 
                 FROM Product p
-                INNER JOIN Category c ON p.ProductCategory = c.CategoryId where EmployeeId = @employeeId";
+                INNER JOIN Category c ON p.ProductCategory = c.CategoryId where EmployeeId = @employeeId and Status=0";
             var parameters = new DynamicParameters();
             parameters.Add("@employeeId", id);
             using (var connection = _context.CreateConnection())
             {
-                var values = await connection.QueryAsync<ResultProductAdvertListWithCategoryByEmployee>(query,parameters);
+                var values = await connection.QueryAsync<ResultProductAdvertListWithCategoryByEmployee>(query, parameters);
+                return values.ToList();
+            }
+        }
+
+        public async Task<List<ResultProductAdvertListWithCategoryByEmployee>> GetProductAdvertListByEmployeeAsyncByTrue(int id)
+        {
+            string query = @"
+                SELECT 
+                    p.ProductId,
+                    p.Title,
+                    p.Price,
+                    p.City,
+                    p.District,
+                    p.CoverImage,
+                    p.Type,
+                    p.Address,
+                    p.DealOfTheDay,
+                    c.CategoryName 
+                FROM Product p
+                INNER JOIN Category c ON p.ProductCategory = c.CategoryId where EmployeeId = @employeeId and Status=1";
+            var parameters = new DynamicParameters();
+            parameters.Add("@employeeId", id);
+            using (var connection = _context.CreateConnection())
+            {
+                var values = await connection.QueryAsync<ResultProductAdvertListWithCategoryByEmployee>(query, parameters);
                 return values.ToList();
             }
         }

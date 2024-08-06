@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RealEstateWebApi.Dtos.ProductDtos;
 using RealEstateWebApi.Repositories.ProductRepository;
 
 namespace RealEstateWebApi.Controllers
@@ -35,11 +36,25 @@ namespace RealEstateWebApi.Controllers
             return Ok(values);
         }
 
-        [HttpGet("ProductAdvertsListByEmployeeId")]
-        public async Task<IActionResult> ProductAdvertsListByEmployeeId(int id)
+        [HttpGet("ProductAdvertsListByEmployeeIdTrueStatus")]
+        public async Task<IActionResult> GetProductAdvertsListByEmployeeIdTrueStatus(int id)
         {
-            var values = await _productRepository.GetProductAdvertListByEmployeeAsync(id);
+            var values = await _productRepository.GetProductAdvertListByEmployeeAsyncByTrue(id);
             return Ok(values);
+        }
+
+        [HttpGet("ProductAdvertsListByEmployeeIdFalseStatus")]
+        public async Task<IActionResult> GetProductAdvertsListByEmployeeIdFalseStatus(int id)
+        {
+            var values = await _productRepository.GetProductAdvertListByEmployeeAsyncByFalse(id);
+            return Ok(values);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
+        {
+            await _productRepository.CreateProduct(createProductDto);
+            return Ok("Advert is created");
         }
     }
 }

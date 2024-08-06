@@ -1,4 +1,4 @@
-﻿namespace RealEstateWebUI.Dtos.ProductDtos
+﻿namespace RealEstateWebApi.Dtos.ProductDtos
 {
     public class CreateProductDto
     {

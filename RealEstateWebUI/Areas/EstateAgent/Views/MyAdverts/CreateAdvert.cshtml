@@ -1,7 +1,7 @@
 ﻿@model RealEstateWebUI.Dtos.ProductDtos.CreateProductDto
 
 @{
-    Layout = "~/Views/Admin/Index.cshtml";
+    Layout = "~/Areas/EstateAgent/Views/LayoutEstateAgent/Index.cshtml";
 }
 
 <div class="container-fluid pt-4 px-4">
@@ -14,7 +14,7 @@
                     <input type="text" asp-for="Title" class="form-control" />
                     <br />
                     <label>Product Price</label>
-                    <input  asp-for="Price" class="form-control" />
+                    <input asp-for="Price" class="form-control" />
                     <br />
                     <label>Product City</label>
                     <input type="text" asp-for="City" class="form-control" />
@@ -23,7 +23,7 @@
                     <input type="text" asp-for="District" class="form-control" />
                     <br />
                     <label>Category Name</label>
-                    @Html.DropDownListFor(x => x.CategoryId, (SelectList)ViewBag.categoryValues, "Select Category", new { @class = "form-control" })
+                    @Html.DropDownListFor(x => x.ProductCategory, (List<SelectListItem>)ViewBag.categoryValues, new { @class = "form-control" })
                     <br />
                     <label>Product CoverImage</label>
                     <input type="text" asp-for="CoverImage" class="form-control" />
@@ -34,12 +34,11 @@
                     <label>Product Address</label>
                     <input type="text" asp-for="Address" class="form-control" />
                     <br />
-                    <button class="btn btn-success">Add Product</button>
+                    <button class="btn btn-success">Add Advert</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-                    
-                    
+
