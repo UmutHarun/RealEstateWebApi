@@ -28,7 +28,7 @@ namespace RealEstateWebApi.Repositories.ProductRepository
             parameters.Add("@Type", createProductDto.Type);
             parameters.Add("@DealOfTheDay", createProductDto.DealOfTheDay);
             parameters.Add("@Status", createProductDto.Status);
-            parameters.Add("@ProductCategory", createProductDto.ProductCategory);
+            parameters.Add("@ProductCategory", createProductDto.CategoryId);
             parameters.Add("@EmployeeId", createProductDto.EmployeeId);
             using (var connection = _context.CreateConnection())
             {
@@ -130,6 +130,18 @@ namespace RealEstateWebApi.Repositories.ProductRepository
             }
         }
 
+        public async Task<ResultProductDto> GetProductById(int id)
+        {
+            string query = "Select ProductID,Title,Price,City,District,Description,CategoryName,CoverImage,Type,Address,DealOfTheday From Product inner join Category on Product.ProductCategory=Category.CategoryId where ProductId=@productId";
+            var parameters = new DynamicParameters();
+            parameters.Add("@productId", id);
+            using (var connection = _context.CreateConnection())
+            {
+                var value = await connection.QueryFirstOrDefaultAsync<ResultProductDto>(query, parameters);
+                return value!;
+            }
+        }
+
         public async void ProductDealOfTheDayStatusChange(int id)
         {
             string query = @"
@@ -145,6 +157,18 @@ namespace RealEstateWebApi.Repositories.ProductRepository
             using (var connection = _context.CreateConnection())
             {
                 await connection.ExecuteAsync(query, parameters);
+            }
+        }
+
+        public async Task<GetProductDetailByIdDto> GetProductDetailByProductId(int id)
+        {
+            string query = "Select * From ProductDetails Where ProductId=@productId";
+            var parameters = new DynamicParameters();
+            parameters.Add("@productId", id);
+            using (var connection = _context.CreateConnection())
+            {
+                var value = await connection.QueryFirstOrDefaultAsync<GetProductDetailByIdDto>(query, parameters);
+                return value!;
             }
         }
     }

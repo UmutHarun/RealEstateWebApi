@@ -56,5 +56,19 @@ namespace RealEstateWebApi.Controllers
             await _productRepository.CreateProduct(createProductDto);
             return Ok("Advert is created");
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetProduct(int id) 
+        {
+            var value = await _productRepository.GetProductById(id);
+            return Ok(value);
+        }
+
+        [HttpGet("GetProductDetailByProductId/{id}")]
+        public async Task<IActionResult> GetProductDetailByProductId(int id)
+        {
+            var value = await _productRepository.GetProductDetailByProductId(id);
+            return Ok(value);
+        }
     }
 }

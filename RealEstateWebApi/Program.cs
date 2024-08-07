@@ -1,5 +1,6 @@
 using RealEstateWebApi.Hubs;
 using RealEstateWebApi.Models.DapperContext;
+using RealEstateWebApi.Repositories.AppUserRepository;
 using RealEstateWebApi.Repositories.BottomGridRepository;
 using RealEstateWebApi.Repositories.CategoryRepository;
 using RealEstateWebApi.Repositories.ContactRepository;
@@ -35,6 +36,7 @@ builder.Services.AddTransient<IAgentStatisticRepository, AgentStatisticRepositor
 builder.Services.AddTransient<IChartRepository, ChartRepository>(); 
 builder.Services.AddTransient<ILast5ProductsRepository, Last5ProductsRepository>(); 
 builder.Services.AddTransient<IMessageRepository, MessageRepository>(); 
+builder.Services.AddTransient<IAppUserRepository, AppUserRepository>(); 
 
 builder.Services.AddCors(opt =>
 {

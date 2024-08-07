@@ -23,7 +23,7 @@
                     <input type="text" asp-for="District" class="form-control" />
                     <br />
                     <label>Category Name</label>
-                    @Html.DropDownListFor(x => x.ProductCategory, (List<SelectListItem>)ViewBag.categoryValues, new { @class = "form-control" })
+                    @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.categoryValues, new { @class = "form-control" })
                     <br />
                     <label>Product CoverImage</label>
                     <input type="text" asp-for="CoverImage" class="form-control" />
