@@ -171,5 +171,19 @@ namespace RealEstateWebApi.Repositories.ProductRepository
                 return value!;
             }
         }
+
+        public async Task<List<ResultProductWithSearchListDto>> GetResultProductWithSearchList(string searchKeyValue, int propertyCategoryId, string city)
+        {
+            string query = "Select * From Product Where Title like '%" + searchKeyValue + "%' And ProductCategory=@propertyCategoryId And City=@city";
+            var parameters = new DynamicParameters();
+            //   parameters.Add("@searchKeyValue", searchKeyValue);
+            parameters.Add("@propertyCategoryId", propertyCategoryId);
+            parameters.Add("@city", city);
+            using (var connection = _context.CreateConnection())
+            {
+                var values = await connection.QueryAsync<ResultProductWithSearchListDto>(query, parameters);
+                return values.ToList();
+            }
+        }
     }
 }

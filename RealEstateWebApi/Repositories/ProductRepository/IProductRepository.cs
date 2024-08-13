@@ -13,5 +13,6 @@ namespace RealEstateWebApi.Repositories.ProductRepository
         Task CreateProduct(CreateProductDto createProductDto);
         Task<ResultProductDto> GetProductById(int id);
         Task<GetProductDetailByIdDto> GetProductDetailByProductId(int id);
+        Task<List<ResultProductWithSearchListDto>> GetResultProductWithSearchList(string searchKeyValue, int propertyCategoryId, string city);
     }
 }

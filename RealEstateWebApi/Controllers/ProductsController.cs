@@ -70,5 +70,12 @@ namespace RealEstateWebApi.Controllers
             var value = await _productRepository.GetProductDetailByProductId(id);
             return Ok(value);
         }
+
+        [HttpGet("ResultProductWithSearchList")]
+        public async Task<IActionResult> ResultProductWithSearchList(string searchKeyValue, int propertyCategoryId, string city)
+        {
+            var values = await _productRepository.GetResultProductWithSearchList(searchKeyValue, propertyCategoryId, city);
+            return Ok(values);
+        }
     }
 }
